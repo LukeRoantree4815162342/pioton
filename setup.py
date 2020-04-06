@@ -8,7 +8,7 @@ setup(
   author = 'Luke Roantree',                   # Type in your name
   author_email = 'luke@roantree.com',      # Type in your E-Mail
   url = 'https://github.com/LukeRoantree4815162342/pioton',   # Provide either the link to your github or to your website
-  download_url = 'https://github.com/LukeRoantree4815162342/pioton/archive/v_01.tar.gz',    # I explain this later on
+  download_url = 'https://github.com/LukeRoantree4815162342/pioton/archive/v_02.tar.gz',    # I explain this later on
   keywords = ['IPython', 'Gaeilge', 'Irish'],   # Keywords that define your package best
   install_requires=['ipython'],
   classifiers=[
