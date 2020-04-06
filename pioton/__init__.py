@@ -1,1 +1,1 @@
-from pioton import pioton
+from .pioton import show_syntax
