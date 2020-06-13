@@ -1,6 +1,6 @@
 import re
 
-def __translate_print(lines):
+def _translate_print(lines):
     new_lines = []
     for line in lines:
         new_line = re.sub('^scríobh', 'print', line)
@@ -9,7 +9,7 @@ def __translate_print(lines):
     return new_lines
 
 
-def __translate_for(lines):
+def _translate_for(lines):
     new_lines = []
     for line in lines:
         if re.search("^do achan\s", line):
@@ -22,7 +22,7 @@ def __translate_for(lines):
     return new_lines
 
 
-def __translate_and(lines):
+def _translate_and(lines):
     new_lines = []
     for line in lines:
         new_line = line.replace(' agus ',' and ')
@@ -30,7 +30,7 @@ def __translate_and(lines):
     return new_lines
 
 
-def __translate_or(lines):
+def _translate_or(lines):
     new_lines = []
     for line in lines:
         new_line = line.replace(' nó ',' or ')
@@ -38,7 +38,7 @@ def __translate_or(lines):
     return new_lines
 
 
-def __translate_bools(lines):
+def _translate_bools(lines):
     new_lines = []
     for line in lines:
         new_line = line.replace('Fíor','True').replace('Bréagach','False')
@@ -46,7 +46,7 @@ def __translate_bools(lines):
     return new_lines
 
 
-def __translate_def(lines):
+def _translate_def(lines):
     new_lines = []
     for line in lines:
         if (re.search(" a sainigh\:$", line)):
@@ -63,7 +63,7 @@ def __translate_def(lines):
     return new_lines
 
 
-def __translate_if(lines):
+def _translate_if(lines):
     new_lines = []
     for line in lines:
         new_line = line.replace('seachas dá','elif')
@@ -73,7 +73,7 @@ def __translate_if(lines):
     return new_lines
 
 
-def __translate_with_as(lines):
+def _translate_with_as(lines):
     new_lines = []
     for line in lines:
         new_line = line.replace(' ag cosiul le ',' as ')
@@ -85,7 +85,7 @@ def __translate_with_as(lines):
     return new_lines
 
 
-def __translate_open_close(lines):
+def _translate_open_close(lines):
     new_lines = []
     for line in lines:
         new_line = line.replace(' oscail(',' open(').replace('druid(','close(')
@@ -93,7 +93,7 @@ def __translate_open_close(lines):
     return new_lines
 
 
-def __translate_none(lines):
+def _translate_none(lines):
     new_lines = []
     for line in lines:
         new_line = line.replace('Rud Ar Bíth', 'None')
@@ -101,7 +101,7 @@ def __translate_none(lines):
     return new_lines
 
 
-def __translate_assert(lines):
+def _translate_assert(lines):
     new_lines = []
     for line in lines:
         new_line = line.replace('seiceáil', 'assert')
@@ -109,7 +109,7 @@ def __translate_assert(lines):
     return new_lines
 
 
-def __translate_imports(lines):
+def _translate_imports(lines):
     new_lines = []
     for line in lines:
         if (re.search("^ó\s", line)):
@@ -125,7 +125,7 @@ def __translate_imports(lines):
     return new_lines
 
 
-def __translate_await(lines):
+def _translate_await(lines):
     new_lines = []
     for line in lines:
         new_line = line.replace('fanacht go ', 'await ')
@@ -133,7 +133,7 @@ def __translate_await(lines):
     return new_lines
 
 
-def __translate_break(lines):
+def _translate_break(lines):
     new_lines = []
     for line in lines:
         new_line = line.replace(' brís ', ' break ')
@@ -141,7 +141,7 @@ def __translate_break(lines):
     return new_lines
 
 
-def __translate_del(lines):
+def _translate_del(lines):
     new_lines = []
     for line in lines:
         if (re.search(" a bhaint$", line)):
@@ -154,7 +154,7 @@ def __translate_del(lines):
     return new_lines
 
 
-def __translate_async(lines):
+def _translate_async(lines):
     new_lines = []
     for line in lines:
         new_line = line.replace('aisioncronach ', 'async ')
@@ -162,7 +162,7 @@ def __translate_async(lines):
     return new_lines
 
 
-def __translate_class(lines):
+def _translate_class(lines):
     new_lines = []
     for line in lines:
         if (re.search("^\s*rang ", line)):
@@ -174,7 +174,7 @@ def __translate_class(lines):
     return new_lines
 
 
-def __translate_continue(lines):
+def _translate_continue(lines):
     new_lines = []
     for line in lines:
         new_line = line.replace(' lean ort', ' continue')
@@ -182,7 +182,7 @@ def __translate_continue(lines):
     return new_lines
 
 
-def __translate_raise(lines):
+def _translate_raise(lines):
     new_lines = []
     for line in lines:
         if (re.search("^\s*seas ", line)):
@@ -195,7 +195,7 @@ def __translate_raise(lines):
     return new_lines
 
 
-def __translate_try_except_finally(lines):
+def _translate_try_except_finally(lines):
     new_lines = []
     for line in lines:
         if (re.search("^iarraidh", line)):
@@ -219,7 +219,7 @@ def __translate_try_except_finally(lines):
     return new_lines
 
 
-def __translate_global(lines):
+def _translate_global(lines):
     new_lines = []
     for line in lines:
         new_line = line.replace(' domhanda ', ' global ')
@@ -227,7 +227,7 @@ def __translate_global(lines):
     return new_lines
 
 
-def __translate_not(lines):
+def _translate_not(lines):
     new_lines = []
     for line in lines:
         new_line = line.replace(' níl ', ' not ')
@@ -235,7 +235,7 @@ def __translate_not(lines):
     return new_lines
 
 
-def __translate_is(lines):
+def _translate_is(lines):
     new_lines = []
     for line in lines:
         new_line = line.replace(' céanna ', ' is ')
@@ -243,7 +243,7 @@ def __translate_is(lines):
     return new_lines
 
 
-def __translate_pass(lines):
+def _translate_pass(lines):
     new_lines = []
     for line in lines:
         new_line = line.replace(' neamhiontas a dhéanamh', ' pass ')
@@ -251,7 +251,7 @@ def __translate_pass(lines):
     return new_lines
 
 
-def __translate_while(lines):
+def _translate_while(lines):
     new_lines = []
     for line in lines:
         if (re.search("^\s*nuair ", line)):
@@ -263,7 +263,7 @@ def __translate_while(lines):
     return new_lines
 
 
-def __translate_yield(lines):
+def _translate_yield(lines):
     new_lines = []
     for line in lines:
         if (re.search("^\s*tabhair", line)):
@@ -343,41 +343,39 @@ yield x                        --> tabhair x
 
 try:
     ip = get_ipython()
-except NameError:
-    raise NotImplementedError("Sorry, this functionality only works for IPython and related tools like Jupyter")
-except Exception as e:
-    raise e
-
-ip.input_transformers_cleanup.append(__translate_print)
-ip.input_transformers_cleanup.append(__translate_for)
-ip.input_transformers_cleanup.append(__translate_and)
-ip.input_transformers_cleanup.append(__translate_or)
-ip.input_transformers_cleanup.append(__translate_bools)
-ip.input_transformers_cleanup.append(__translate_def)
-ip.input_transformers_cleanup.append(__translate_if)
-ip.input_transformers_cleanup.append(__translate_with_as)
-ip.input_transformers_cleanup.append(__translate_open_close)
-ip.input_transformers_cleanup.append(__translate_none)
-ip.input_transformers_cleanup.append(__translate_assert)
-ip.input_transformers_cleanup.append(__translate_imports)
-ip.input_transformers_cleanup.append(__translate_await)
-ip.input_transformers_cleanup.append(__translate_break)
-ip.input_transformers_cleanup.append(__translate_del)
-ip.input_transformers_cleanup.append(__translate_async)
-ip.input_transformers_cleanup.append(__translate_class)
-ip.input_transformers_cleanup.append(__translate_continue)
-ip.input_transformers_cleanup.append(__translate_raise)
-ip.input_transformers_cleanup.append(__translate_try_except_finally)
-ip.input_transformers_cleanup.append(__translate_global)
-ip.input_transformers_cleanup.append(__translate_not)
-ip.input_transformers_cleanup.append(__translate_is)
-ip.input_transformers_cleanup.append(__translate_pass)
-ip.input_transformers_cleanup.append(__translate_while)
-ip.input_transformers_cleanup.append(__translate_yield)
-
-print("""UserWarning: 
+    ip.input_transformers_cleanup.append(_translate_print)
+    ip.input_transformers_cleanup.append(_translate_for)
+    ip.input_transformers_cleanup.append(_translate_and)
+    ip.input_transformers_cleanup.append(_translate_or)
+    ip.input_transformers_cleanup.append(_translate_bools)
+    ip.input_transformers_cleanup.append(_translate_def)
+    ip.input_transformers_cleanup.append(_translate_if)
+    ip.input_transformers_cleanup.append(_translate_with_as)
+    ip.input_transformers_cleanup.append(_translate_open_close)
+    ip.input_transformers_cleanup.append(_translate_none)
+    ip.input_transformers_cleanup.append(_translate_assert)
+    ip.input_transformers_cleanup.append(_translate_imports)
+    ip.input_transformers_cleanup.append(_translate_await)
+    ip.input_transformers_cleanup.append(_translate_break)
+    ip.input_transformers_cleanup.append(_translate_del)
+    ip.input_transformers_cleanup.append(_translate_async)
+    ip.input_transformers_cleanup.append(_translate_class)
+    ip.input_transformers_cleanup.append(_translate_continue)
+    ip.input_transformers_cleanup.append(_translate_raise)
+    ip.input_transformers_cleanup.append(_translate_try_except_finally)
+    ip.input_transformers_cleanup.append(_translate_global)
+    ip.input_transformers_cleanup.append(_translate_not)
+    ip.input_transformers_cleanup.append(_translate_is)
+    ip.input_transformers_cleanup.append(_translate_pass)
+    ip.input_transformers_cleanup.append(_translate_while)
+    ip.input_transformers_cleanup.append(_translate_yield)
+    print("""UserWarning: 
 You're using píotón, a tool to write IPython code as Gaeilge.
 Call pioton.show_syntax() to see the new syntax provided.
 This wasn't built to be robust, so we don't recommend it for
 anything important. If you still want to use it for anything 
 important knowing this, go have a wee word with yourself.""")
+except Exception as e:
+    pass
+
+
