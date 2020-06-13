@@ -1,4 +1,10 @@
 # Píotón - Write Python code in Irish in IPython
+---
+### Installation:
+
+pip: pip install pioton 
+
+github: clone the repo, move the contents of the pioton/ folder somewhere accessible by your PythonPATH
 
 ---
 #### USAGE Transpiled:
