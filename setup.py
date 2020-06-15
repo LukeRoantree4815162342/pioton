@@ -1,7 +1,7 @@
 from distutils.core import setup
 
 long_desc = """
-Píotón - Write Python code in Irish in IPython
+Píotón - Write Python code in Irish
 
 ---
 
@@ -45,7 +45,7 @@ setup(
   name = 'pioton',         # How you named your package folder (MyLib)
   packages = ['pioton'],   # Chose the same as "name"
   scripts = ['bin/tiomsaitheoir'],
-  version = '0.3.6',      # Start with a small number and increase it with every change you make
+  version = '0.3.8',      # Start with a small number and increase it with every change you make
   license='GPL',        # Chose a license from here: https://help.github.com/articles/licensing-a-repository
   description = 'píotón language is a superset of Python allowing it to be written in Irish. Not for use in any important work',   # Give a short description about your library
   long_description = long_desc,

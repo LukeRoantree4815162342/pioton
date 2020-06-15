@@ -101,22 +101,25 @@ def do_stuff():
 
     for i in args.input_names:
         if not i.endswith('.pag'):
-            print("You should save your píotón files with .pag extensions")
+            print("WARNING:\nYou must save your píotón files with .pag extensions or they will be skipped")
             break
 
     for i in args.input_names:
-        if os.path.isfile(i.replace('.pag','.py')):
+        if i.endswith('.pag') and os.path.isfile(i.replace('.pag','.py')):
             raise FileExistsError("cannot convert {} as {} already exists - delete or rename this first".format(i, i.replace('.pag','.py')))
 
     print('Ag tosú... | Starting...',flush=True)
     for i in args.input_names:
-        with open(i,'r') as f:
-            lines = f.readlines()
-            for change in changes:
-                lines = change(lines)
-        with open(i.replace('.pag','.py'), 'w') as fout:
-            fout.writelines(lines)
-        print("Rinne é le {0} | Done with {0}".format(i))
+        if not i.endswith('.pag'):
+            pass
+        else:
+            with open(i,'r') as f:
+                lines = f.readlines()
+                for change in changes:
+                    lines = change(lines)
+            with open(i.replace('.pag','.py'), 'w') as fout:
+                fout.writelines(lines)
+            print("Rinne é le {0} | Done with {0}".format(i))
 
 if __name__=="__main__":
     do_stuff()

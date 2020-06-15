@@ -1,24 +1,28 @@
-# Píotón - Write Python code in Irish in IPython
+# Píotón - Write Python code in Irish
 ---
 ### Installation:
 
-pip: pip install pioton 
+pip: 
 
-github: clone the repo, move the contents of the pioton/ folder somewhere accessible by your PythonPATH
+    pip install pioton 
+
+github: 
+
+clone the repo, move the contents of the pioton/ folder somewhere accessible by your PythonPATH
 
 ---
 #### USAGE Transpiled:
 write your píotón code in one or more scripts with a '.pag' (Python as Gaeilge) extension, and run 
 
-tiomsaitheoir file.pag [file2.pag [...]]
+    tiomsaitheoir file.pag [file2.pag [...]]
 
 which will transpile the píotón scripts into pure Python '.py' files. Running 
 
-tiomsaitheoir -h
+    tiomsaitheoir -h
 
 will provide further details and examples, and running 
 
-tiomsaitheoir -s
+    tiomsaitheoir -s
 
 will show an overview of the syntax for píotón code 
 
