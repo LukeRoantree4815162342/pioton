@@ -2,5 +2,6 @@
 README.txt
 setup.cfg
 setup.py
+bin/tiomsaitheoir
 pioton/__init__.py
 pioton/pioton.py
