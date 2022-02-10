@@ -11,6 +11,18 @@ github:
 clone the repo, move the contents of the pioton/ folder somewhere accessible by your PythonPATH
 
 ---
+### Try it online:
+
+[run it in your browser](https://replite.vercel.app/retro/consoles/?kernel=python)
+
+copy and paste the following into the cell at the bottom, and press shift-enter to start
+```
+import micropip
+await micropip.install('pioton')
+import pioton
+```
+
+---
 #### USAGE Transpiled:
 write your píotón code in one or more scripts with a '.pag' (Python as Gaeilge) extension, and run 
 
