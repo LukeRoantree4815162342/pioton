@@ -13,9 +13,9 @@ clone the repo, move the contents of the pioton/ folder somewhere accessible by 
 ---
 ### Try it online:
 
-[run it in your browser](https://replite.vercel.app/retro/consoles/?kernel=python)
+[run it in your browser](https://replite.vercel.app/repl/index.html)
 
-copy and paste the following into the cell at the bottom, and press shift-enter to start
+select 'pyolite' kernel, then copy and paste the following into the cell at the bottom, and press shift-enter to start
 ```
 import micropip
 await micropip.install('pioton')
