@@ -1,10 +1,68 @@
 import re
 
+PIOTON_MULTILINE_IDENTIFIER = "  # PIOTON-MULTI"
+
+def _mark_multiline_strings(lines):
+    """Pre-processor to mark lines that fall within multi-line string literals."""
+    new_lines = []
+    active_quote = None
+    for line in lines:
+        if active_quote:
+            # Already inside a multiline block, mark it and check for the end
+            tagged = line.rstrip('\n\r')
+            if not tagged.endswith(PIOTON_MULTILINE_IDENTIFIER):
+                tagged += PIOTON_MULTILINE_IDENTIFIER
+            if line.endswith('\n'): tagged += '\n'
+            new_lines.append(tagged)
+            if active_quote in line:
+                active_quote = None
+        else:
+            # Check if this line starts a multiline block
+            dq_pos, sq_pos = line.find('"""'), line.find("'''")
+            quote_type = None
+            if dq_pos != -1 and (sq_pos == -1 or dq_pos < sq_pos): quote_type = '"""'
+            elif sq_pos != -1: quote_type = "'''"
+            
+            if quote_type and line.count(quote_type) % 2 != 0:
+                active_quote = quote_type
+            new_lines.append(line)
+    return new_lines
+
+
+def _unmark_multiline_strings(lines):
+    """Pre-processor to unmark lines that fall within multi-line string literals."""
+    new_lines = []
+    for line in lines:
+        if re.search(re.escape(PIOTON_MULTILINE_IDENTIFIER) + r'\s*$', line):
+            new_lines.append(line.replace(PIOTON_MULTILINE_IDENTIFIER, ""))
+        else:
+            new_lines.append(line)
+    return new_lines
+
+
+def _is_in_string(line, index):
+    """Checks if a character index in a line is inside a string literal."""
+    # Matches single and double quoted strings, including basic escaped quotes
+    string_pattern = r'(\"(?:\\.|[^"\n])*\"|\'(?:\\.|[^\'\n])*\')'
+    for match in re.finditer(string_pattern, line):
+        if match.start() <= index < match.end():
+            return True
+    return False
+
+def _smart_replace(line, target, replacement, is_regex=False):
+    """Replaces target with replacement only if it is not inside a string literal."""
+    if re.search(re.escape(PIOTON_MULTILINE_IDENTIFIER) + r'\s*$', line):
+        return line
+    pattern = target if is_regex else re.escape(target)
+    return re.sub(pattern, lambda m: m.group(0) if _is_in_string(line, m.start()) else replacement, line)
+
 def _translate_print(lines):
     new_lines = []
     for line in lines:
-        new_line = re.sub('^scríobh', 'print', line)
-        new_line = new_line.replace(" scríobh", " print").replace("\tscríobh", "\tprint")
+        # Replace keywords only if they aren't in strings
+        new_line = _smart_replace(line, '^scríobh', 'print', is_regex=True)
+        new_line = _smart_replace(new_line, ' scríobh', ' print')
+        new_line = _smart_replace(new_line, '\tscríobh', '\tprint')
         new_lines.append(new_line)
     return new_lines
 
@@ -12,12 +70,9 @@ def _translate_print(lines):
 def _translate_for(lines):
     new_lines = []
     for line in lines:
-        if re.search("^do achan\s", line):
-            new_line = re.sub("^do achan", 'for', line)
-        else:
-            new_line = line
-        new_line = new_line.replace(" do achan ", ' for ')
-        new_line = new_line.replace(" sa ", " in ")
+        new_line = _smart_replace(line, '^do achan', 'for', is_regex=True)
+        new_line = _smart_replace(new_line, ' do achan ', ' for ')
+        new_line = _smart_replace(new_line, ' sa ', ' in ')
         new_lines.append(new_line)
     return new_lines
 
@@ -25,7 +80,7 @@ def _translate_for(lines):
 def _translate_and(lines):
     new_lines = []
     for line in lines:
-        new_line = line.replace(' agus ',' and ')
+        new_line = _smart_replace(line, ' agus ', ' and ')
         new_lines.append(new_line)
     return new_lines
 
@@ -343,6 +398,7 @@ yield x                        --> tabhair x
 
 try:
     ip = get_ipython()
+    # ip.input_transformers_cleanup.append(_mark_multiline_strings)
     ip.input_transformers_cleanup.append(_translate_print)
     ip.input_transformers_cleanup.append(_translate_for)
     ip.input_transformers_cleanup.append(_translate_and)
@@ -377,5 +433,3 @@ anything important. If you still want to use it for anything
 important knowing this, go have a wee word with yourself.""")
 except Exception as e:
     pass
-
-
