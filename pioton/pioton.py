@@ -1,4 +1,5 @@
 import re
+from IPython.core.magic import register_cell_magic
 
 PIOTON_MULTILINE_IDENTIFIER = "  # PIOTON-MULTI"
 
@@ -396,40 +397,88 @@ yield x                        --> tabhair x
 
 """)
 
-try:
-    ip = get_ipython()
-    # ip.input_transformers_cleanup.append(_mark_multiline_strings)
-    ip.input_transformers_cleanup.append(_translate_print)
-    ip.input_transformers_cleanup.append(_translate_for)
-    ip.input_transformers_cleanup.append(_translate_and)
-    ip.input_transformers_cleanup.append(_translate_or)
-    ip.input_transformers_cleanup.append(_translate_bools)
-    ip.input_transformers_cleanup.append(_translate_def)
-    ip.input_transformers_cleanup.append(_translate_if)
-    ip.input_transformers_cleanup.append(_translate_with_as)
-    ip.input_transformers_cleanup.append(_translate_open_close)
-    ip.input_transformers_cleanup.append(_translate_none)
-    ip.input_transformers_cleanup.append(_translate_assert)
-    ip.input_transformers_cleanup.append(_translate_imports)
-    ip.input_transformers_cleanup.append(_translate_await)
-    ip.input_transformers_cleanup.append(_translate_break)
-    ip.input_transformers_cleanup.append(_translate_del)
-    ip.input_transformers_cleanup.append(_translate_async)
-    ip.input_transformers_cleanup.append(_translate_class)
-    ip.input_transformers_cleanup.append(_translate_continue)
-    ip.input_transformers_cleanup.append(_translate_raise)
-    ip.input_transformers_cleanup.append(_translate_try_except_finally)
-    ip.input_transformers_cleanup.append(_translate_global)
-    ip.input_transformers_cleanup.append(_translate_not)
-    ip.input_transformers_cleanup.append(_translate_is)
-    ip.input_transformers_cleanup.append(_translate_pass)
-    ip.input_transformers_cleanup.append(_translate_while)
-    ip.input_transformers_cleanup.append(_translate_yield)
-    print("""UserWarning: 
-You're using píotón, a tool to write IPython code as Gaeilge.
-Call pioton.show_syntax() to see the new syntax provided.
-This wasn't built to be robust, so we don't recommend it for
-anything important. If you still want to use it for anything 
-important knowing this, go have a wee word with yourself.""")
-except Exception as e:
-    pass
+
+def píotón_notebook():
+    try:
+        ip = get_ipython()
+        # ip.input_transformers_cleanup.append(_mark_multiline_strings)
+        ip.input_transformers_cleanup.append(_translate_print)
+        ip.input_transformers_cleanup.append(_translate_for)
+        ip.input_transformers_cleanup.append(_translate_and)
+        ip.input_transformers_cleanup.append(_translate_or)
+        ip.input_transformers_cleanup.append(_translate_bools)
+        ip.input_transformers_cleanup.append(_translate_def)
+        ip.input_transformers_cleanup.append(_translate_if)
+        ip.input_transformers_cleanup.append(_translate_with_as)
+        ip.input_transformers_cleanup.append(_translate_open_close)
+        ip.input_transformers_cleanup.append(_translate_none)
+        ip.input_transformers_cleanup.append(_translate_assert)
+        ip.input_transformers_cleanup.append(_translate_imports)
+        ip.input_transformers_cleanup.append(_translate_await)
+        ip.input_transformers_cleanup.append(_translate_break)
+        ip.input_transformers_cleanup.append(_translate_del)
+        ip.input_transformers_cleanup.append(_translate_async)
+        ip.input_transformers_cleanup.append(_translate_class)
+        ip.input_transformers_cleanup.append(_translate_continue)
+        ip.input_transformers_cleanup.append(_translate_raise)
+        ip.input_transformers_cleanup.append(_translate_try_except_finally)
+        ip.input_transformers_cleanup.append(_translate_global)
+        ip.input_transformers_cleanup.append(_translate_not)
+        ip.input_transformers_cleanup.append(_translate_is)
+        ip.input_transformers_cleanup.append(_translate_pass)
+        ip.input_transformers_cleanup.append(_translate_while)
+        ip.input_transformers_cleanup.append(_translate_yield)
+        print("""UserWarning: 
+    You're using píotón, a tool to write IPython code as Gaeilge.
+    Call pioton.show_syntax() to see the new syntax provided.
+    This wasn't built to be robust, so we don't recommend it for
+    anything important. If you still want to use it for anything 
+    important knowing this, go have a wee word with yourself.""")
+    except Exception as e:
+        pass
+
+def píotón_magic():
+    try:
+        ip = get_ipython()
+    except Exception as e:
+        pass
+
+    @register_cell_magic('píotón')
+    def _píotón_magic(line, cell):
+        changes = [
+            _mark_multiline_strings,
+            _translate_print,
+            _translate_for,
+            _translate_and,
+            _translate_or,
+            _translate_bools,
+            _translate_def,
+            _translate_if,
+            _translate_with_as,
+            _translate_open_close,
+            _translate_none,
+            _translate_assert,
+            _translate_imports,
+            _translate_await,
+            _translate_break,
+            _translate_del,
+            _translate_async,
+            _translate_class,
+            _translate_continue,
+            _translate_raise,
+            _translate_try_except_finally,
+            _translate_global,
+            _translate_not,
+            _translate_is,
+            _translate_pass,
+            _translate_while,
+            _translate_yield,
+            _unmark_multiline_strings,
+        ]
+        cell = cell.split('\n')
+        for change in changes:
+            cell = change(cell)
+        cell = '\n'.join(cell)
+        ip.run_cell(cell)
+    
+    

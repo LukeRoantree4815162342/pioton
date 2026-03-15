@@ -45,7 +45,7 @@ setup(
   name = 'pioton',         # How you named your package folder (MyLib)
   packages = ['pioton'],   # Chose the same as "name"
   scripts = ['bin/tiomsaitheoir'],
-  version = '0.3.9',      # Start with a small number and increase it with every change you make
+  version = '0.3.10',      # Start with a small number and increase it with every change you make
   license='GPL',        # Chose a license from here: https://help.github.com/articles/licensing-a-repository
   description = 'píotón language is a superset of Python allowing it to be written in Irish. Not for use in any important work',   # Give a short description about your library
   long_description = long_desc,
@@ -60,12 +60,16 @@ setup(
     'Intended Audience :: Developers',      # Define that your audience are developers
     'Topic :: Software Development :: Build Tools',
     'License :: OSI Approved :: GNU General Public License (GPL)',   # Again, pick a license
-    'Programming Language :: Python :: 3',      #Specify which pyhton versions that you want to support
+    'Programming Language :: Python :: 3',      #Specify which python versions that you want to support
     'Programming Language :: Python :: 3.4',
     'Programming Language :: Python :: 3.5',
     'Programming Language :: Python :: 3.6',
     'Programming Language :: Python :: 3.7',
     'Programming Language :: Python :: 3.8',
-    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: 3.12',
+    'Programming Language :: Python :: 3.13',
+    'Programming Language :: Python :: 3.14',
   ],
 )

@@ -54,8 +54,8 @@ $ tiomsaitheoir file1.pag file2.pag
 $ ls
 file1.pag # i bpíotón | in píotón
 file2.pag  
-file1.py # i bPython | in Python
-file2.py
+file1_pag.py # i bPython | in Python
+file2_pag.py
 """)
 
 parser.add_argument("input_names", type=str, help='ainm(neacha) na comha(i)d | name(s) of file(s)', nargs='*')
@@ -112,7 +112,7 @@ def do_stuff():
             break
 
     for i in args.input_names:
-        if i.endswith('.pag') and os.path.isfile(i.replace('.pag','.py')):
+        if i.endswith('.pag') and os.path.isfile(i.replace('.pag','_pag.py')):
             raise FileExistsError("cannot convert {} as {} already exists - delete or rename this first".format(i, i.replace('.pag','.py')))
 
     print('Ag tosú... | Starting...',flush=True)
@@ -124,7 +124,7 @@ def do_stuff():
                 lines = f.readlines()
                 for change in changes:
                     lines = change(lines)
-            with open(i.replace('.pag','.py'), 'w') as fout:
+            with open(i.replace('.pag','_pag.py'), 'w') as fout:
                 fout.writelines(lines)
             print("Rinne é le {0} | Done with {0}".format(i))
 

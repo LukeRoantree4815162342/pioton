@@ -30,5 +30,7 @@ from .pioton import (
     _translate_is,
     _translate_pass,
     _translate_while,
-    _translate_yield
+    _translate_yield,
+    píotón_magic,
+    píotón_notebook
 )
